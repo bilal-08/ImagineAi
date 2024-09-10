@@ -8,7 +8,7 @@ export default function Page() {
       <div className="bg-[#FFFFFF] dark:bg-[#09090B] h-screen flex flex-col items-center">
         <ImageGen />
         <p className="font-inter font-semibold mt-10 text-black dark:text-white">
-          Created By Major project ❤️
+          Created with ❤️
         </p>
       </div>
     </>

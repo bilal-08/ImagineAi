@@ -8,6 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { useTheme } from "./ThemeProvider";
+
 import { useState, useEffect } from "react";
 // import { grid } from "ldrs";
 
@@ -17,6 +19,8 @@ export default function ImageGen() {
   const [InputText, setInputText] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const { theme } = useTheme();
+
   useEffect(() => {
     async function loadGrid() {
       const { grid } = await import("ldrs");
@@ -62,11 +66,8 @@ export default function ImageGen() {
       <div className="w-3/5 max-sm:w-4/5 m-1 flex justify-between items-center font-semibold  mt-10">
         <p className="text-black dark:text-white">Prompt</p>
         <Select onValueChange={handleSelectChange}>
-          <SelectTrigger className="peer w-[180px] max-sm:w-[130px]">
-            <SelectValue
-              placeholder="Example"
-              className="dark:data-[placeholder]:text-muted-foreground"
-            />
+          <SelectTrigger className="peer w-[180px] max-sm:w-[130px] dark:data-[placeholder]:text-white data-[placeholder]:text-black">
+            <SelectValue placeholder="Example" className="" />
           </SelectTrigger>
           <SelectContent className="w-[180px] overflow-hidden">
             <SelectItem
@@ -124,7 +125,7 @@ export default function ImageGen() {
             value={InputText}
             onChange={handleInputChange}
             placeholder="Write your prompt here..."
-            className="placeholder-black dark:placeholder-white dark:text-white  outline-none focus:ring-0 focus:border-none"
+            className="placeholder-black dark:placeholder-white text-black dark:text-white  outline-none focus:ring-0 focus:border-none"
           />
           <Button
             variant="outline"
@@ -138,7 +139,11 @@ export default function ImageGen() {
         <div className="w-full min-h-96 flex justify-center items-center">
           {loading && (
             <div className="flex justify-center items-center text-center font-inter text-xl font-bold">
-              <l-grid size="60" speed="1.5" color="black"></l-grid>
+              <l-grid
+                size="60"
+                speed="1.5"
+                color={theme == "light" ? "black" : "white"}
+              ></l-grid>
             </div>
           )}
           {!loading && imageUrl && (
